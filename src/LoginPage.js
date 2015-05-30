@@ -4,7 +4,6 @@ import Firebase from 'firebase';
 const HOST = 'https://react-org-manager.firebaseio.com';
 const ref = new Firebase(HOST);
 
-
 export default React.createClass({
   propTypes: {
     onAuth: React.PropTypes.func.isRequired
@@ -30,7 +29,12 @@ export default React.createClass({
     return (
       <div>
         <h2>Login</h2>
-        <button type="button" onClick={this.login}>Login with GitHub</button>
+        <button
+          type="button"
+          onClick={this.login}
+        >
+          Login with GitHub
+        </button>
       </div>
     );
   }

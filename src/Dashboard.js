@@ -47,9 +47,9 @@ export default React.createClass({
       return (
         <li key={org.login}>
           <button
-           type="button"
-           onClick={this.handleSelectOrg.bind(null, org)}
-           className={selectedOrg === org ? 'active' : ''}
+            type="button"
+            onClick={this.handleSelectOrg.bind(null, org)}
+            className={selectedOrg === org ? 'active' : ''}
           >
             {org.login}
           </button>
@@ -66,7 +66,7 @@ export default React.createClass({
         </ul>
         {selectedOrg && (
           <OrgTeams user={user} org={selectedOrg} />
-        )}
+         )}
       </div>
     );
   }

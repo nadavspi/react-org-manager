@@ -19,13 +19,13 @@ const App = React.createClass({
     const { user } = this.state;
 
     return (
-        <div>
+      <div>
         {user === null ? (
           <LoginPage onAuth={this.handleAuth} />
-        ) : (
-          <Dashboard user={user} />
-        )}
-        </div>
+         ) : (
+           <Dashboard user={user} />
+         )}
+      </div>
     );
   }
 });
