@@ -1,10 +1,9 @@
 import React from 'react';
 import xhr from 'xhr';
-import Auth from './utils/AuthMixin';
-import OrgTeams from './OrgTeams';
 import Router from 'react-router';
 const { RouteHandler, Link } = Router;
-import authUtils from './utils/authUtils';
+import Auth from '../utils/AuthMixin';
+import authUtils from '../utils/authUtils';
 
 export default React.createClass({
   mixins: [ Auth ],

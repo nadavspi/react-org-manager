@@ -1,7 +1,7 @@
 import React from 'react';
 import xhr from 'xhr';
 import Router from 'react-router';
-import authUtils from './utils/authUtils';
+import authUtils from '../utils/authUtils';
 
 export default React.createClass({
   mixins: [ Router.State ],

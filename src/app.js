@@ -1,12 +1,12 @@
 import React from 'react';
 import Router from 'react-router';
 const { Route, RouteHandler, DefaultRoute, Link } = Router;
-import Login from './Login';
-import Logout from './Logout';
-import Home from './Home';
-import Dashboard from './Dashboard';
 import authUtils from './utils/authUtils';
-import OrgTeams from './OrgTeams';
+import Login from './components/Login';
+import Logout from './components/Logout';
+import Home from './components/Home';
+import Dashboard from './components/Dashboard';
+import Org from './components/Org';
 
 const App = React.createClass({
   getInitialState () {
@@ -45,7 +45,7 @@ const routes = (
     <Route name="login" handler={Login} />
     <Route name="logout" handler={Logout} />
     <Route name="dashboard" handler={Dashboard} path="orgs">
-      <Route name="org" handler={OrgTeams} path=":name" />
+      <Route name="org" handler={Org} path=":name" />
     </Route>
   </Route>
 );

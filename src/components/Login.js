@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from 'react-router';
-import authUtils from './utils/authUtils';
+import authUtils from '../utils/authUtils';
 
 export default React.createClass({
   mixins: [ Router.Navigation ],

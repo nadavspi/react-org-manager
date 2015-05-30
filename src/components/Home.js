@@ -1,5 +1,5 @@
 import React from 'react';
-import authUtils from './utils/authUtils';
+import authUtils from '../utils/authUtils';
 import { Link } from 'react-router';
 
 export default React.createClass({
