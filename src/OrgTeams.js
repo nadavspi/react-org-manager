@@ -1,26 +1,35 @@
 import React from 'react';
 import xhr from 'xhr';
+import Router from 'react-router';
+import authUtils from './utils/authUtils';
 
 export default React.createClass({
-  propTypes: {
-    user: React.PropTypes.object.isRequired,
-    org: React.PropTypes.object.isRequired
-  },
+  mixins: [ Router.State ],
 
   getInitialState () {
     return {
+      user: authUtils.getUser(),
       teams: []
     };
   },
 
-  componentWillReceiveProps (newProps) {
-    const { org } = newProps;
+  componentDidMount () {
+    this.fetchTeams();
+  },
+
+  componentWillReceiveProps () {
+    this.fetchTeams();
+  },
+
+  fetchTeams () {
+    const { name } = this.getParams();
+    const { user } = this.state;
 
     xhr({
-      url: `https://api.github.com/orgs/${org.login}/teams`,
+      url: `https://api.github.com/orgs/${name}/teams`,
       responseType: 'json',
       headers: {
-        'Authorization': `token ${this.props.user.accessToken}`
+        'Authorization': `token ${user.github.accessToken}`
       }
     }, (err, resp, body) => {
       if (err) {
@@ -33,10 +42,12 @@ export default React.createClass({
     });
   },
 
+
   render () {
+    const { name } = this.getParams();
     const teams = this.state.teams.map((team) => {
       return (
-        <li>
+        <li key={team.id}>
           {team.name} ({team.permission})
         </li>
       );
@@ -44,7 +55,7 @@ export default React.createClass({
 
     return (
       <div>
-        <h2>Teams for {this.props.org.login}</h2>
+        <h2>Teams for {name}</h2>
         <ul>
           {teams}
         </ul>

@@ -1,16 +1,17 @@
 import React from 'react';
 import xhr from 'xhr';
+import Auth from './utils/AuthMixin';
 import OrgTeams from './OrgTeams';
+import Router from 'react-router';
+const { RouteHandler, Link } = Router;
+import authUtils from './utils/authUtils';
 
 export default React.createClass({
-  propTypes: {
-    user: React.PropTypes.object.isRequired
-  },
+  mixins: [ Auth ],
 
   getInitialState () {
     return {
-      orgs: [],
-      selectedOrg: {}
+      orgs: []
     };
   },
 
@@ -19,13 +20,12 @@ export default React.createClass({
       url: 'https://api.github.com/user/orgs',
       responseType: 'json',
       headers: {
-        'Authorization': `token ${this.props.user.accessToken}`
+        'Authorization': `token ${authUtils.getUser().github.accessToken}`
       }
     }, (err, resp, body) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(body);
         this.setState({
           orgs: body
         });
@@ -33,40 +33,26 @@ export default React.createClass({
     });
   },
 
-  handleSelectOrg (org) {
-    this.setState({
-      selectedOrg: org
-    });
-  },
-
   render () {
-    const { user } = this.props;
-    const { selectedOrg } = this.state;
+    const user = authUtils.getUser();
 
     const orgs = this.state.orgs.map((org) => {
       return (
         <li key={org.login}>
-          <button
-            type="button"
-            onClick={this.handleSelectOrg.bind(null, org)}
-            className={selectedOrg === org ? 'active' : ''}
-          >
+	  <Link to="org" params={{ name: org.login }}>
             {org.login}
-          </button>
+	  </Link>
         </li>
       );
     });
 
     return (
       <div>
-        <h1>Hello, {user.displayName}</h1>
-        Your orgs:
+	<h1>{user.github.username}&rsquo;s organizations</h1>
         <ul>
           {orgs}
         </ul>
-        {selectedOrg && (
-          <OrgTeams user={user} org={selectedOrg} />
-         )}
+	<RouteHandler />
       </div>
     );
   }
