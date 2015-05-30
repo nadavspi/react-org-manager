@@ -44,12 +44,12 @@ const routes = (
     <DefaultRoute handler={Home} />
     <Route name="login" handler={Login} />
     <Route name="logout" handler={Logout} />
-    <Route name="dashboard" handler={Dashboard}>
+    <Route name="dashboard" handler={Dashboard} path="orgs">
       <Route name="org" handler={OrgTeams} path=":name" />
     </Route>
   </Route>
 );
 
-Router.run(routes, (Root) => {
+Router.run(routes, Router.HistoryLocation, (Root) => {
   React.render(<Root/>, document.body);
 });
